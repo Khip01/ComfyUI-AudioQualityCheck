@@ -28,4 +28,6 @@ jobs:
 
       - name: Run unit tests
         run: |
-          PYTHONPATH=. pytest -v
+          # --confcutdir=tests prevents pytest from importing the repo root
+          # __init__.py (required by ComfyUI with relative imports) as a package
+          PYTHONPATH=. pytest -v --confcutdir=tests
