@@ -28,4 +28,4 @@ jobs:
 
       - name: Run unit tests
         run: |
-          pytest -v
+          PYTHONPATH=. pytest -v
