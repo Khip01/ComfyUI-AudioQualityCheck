@@ -20,3 +20,6 @@ Repository = "https://github.com/naratel/ComfyUI-AudioQualityCheck"
 PublisherId = "naraya-telematika"
 DisplayName = "Audio Quality Evaluator"
 Icon = ""
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
