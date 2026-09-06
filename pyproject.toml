@@ -1,0 +1,22 @@
+[project]
+name = "comfyui-audio-quality-check"
+description = "ComfyUI custom node for automated audio quality standards evaluation (LUFS, True Peak, Noise Floor, LRA, Dropout)"
+version = "0.1.0"
+license = { text = "Proprietary - PT Naraya Telematika" }
+authors = [
+    { name = "Khip", email = "narateladv@gmail.com" }
+]
+dependencies = [
+    "numpy",
+    "scipy",
+    "pyloudnorm",
+    "soundfile",
+]
+
+[project.urls]
+Repository = "https://github.com/naratel/ComfyUI-AudioQualityCheck"
+
+[tool.comfy]
+PublisherId = "naraya-telematika"
+DisplayName = "Audio Quality Evaluator"
+Icon = ""

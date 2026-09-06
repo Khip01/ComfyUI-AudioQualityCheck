@@ -1,0 +1,8 @@
+# Exclude test and development files from registry packaging
+tests/
+.github/
+.pytest_cache/
+*.wav
+*.mp3
+*.flac
+*.ogg
