@@ -4,7 +4,7 @@ description = "ComfyUI custom node for automated audio quality standards evaluat
 version = "0.1.0"
 license = { file = "LICENSE" }
 authors = [
-    { name = "khip01", email = "aakhifathallah24@gmail.com" }
+    { name = "Khip01", email = "aakhifathallah24@gmail.com" }
 ]
 dependencies = [
     "numpy",

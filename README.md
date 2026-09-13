@@ -31,4 +31,4 @@ pip install -r ComfyUI-AudioQualityCheck/requirements.txt
 
 ## License
 
-Apache-2.0 - Copyright (c) 2026 khip01. See LICENSE for details.
+Apache-2.0 - Copyright (c) 2026 Khip01. See LICENSE for details.
