@@ -1,6 +1,6 @@
 # ComfyUI-AudioQualityCheck
 
-Automated audio quality evaluation custom node for ComfyUI based on PT Naraya Telematika quality standards.
+Automated audio quality evaluation custom node for ComfyUI for thesis research on broadcast-style audio quality thresholds.
 
 ## Features
 
@@ -18,7 +18,7 @@ Copy or clone this repository into your ComfyUI `custom_nodes/` directory:
 
 ```bash
 cd /path/to/ComfyUI/custom_nodes
-git clone https://github.com/naratel/ComfyUI-AudioQualityCheck.git
+git clone https://github.com/Khip01/ComfyUI-AudioQualityCheck.git
 pip install -r ComfyUI-AudioQualityCheck/requirements.txt
 ```
 
@@ -31,4 +31,4 @@ pip install -r ComfyUI-AudioQualityCheck/requirements.txt
 
 ## License
 
-Proprietary - Copyright (c) 2026 PT Naraya Telematika. All Rights Reserved.
+Apache-2.0 - Copyright (c) 2026 khip01. See LICENSE for details.

@@ -135,8 +135,8 @@ def calculate_max_dropout(
 
 # 6. Fungsi Utama: Orkestrator Evaluasi Standar Audio
 # ------
-# Menjalankan seluruh fungsi perhitungan, membandingkan hasil dengan target
-# spesifikasi dokumen Fase 2, dan menyusun laporan evaluasi dalam format teks.
+# Menjalankan seluruh fungsi perhitungan, membandingkan hasil dengan ambang
+# kualitas gaya broadcast untuk riset skripsi, dan menyusun laporan evaluasi.
 def evaluate_audio_quality(
     waveform: torch.Tensor,
     sample_rate: int,
