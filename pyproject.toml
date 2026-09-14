@@ -17,7 +17,7 @@ dependencies = [
 Repository = "https://github.com/Khip01/ComfyUI-AudioQualityCheck"
 
 [tool.comfy]
-PublisherId = "Khip01"
+PublisherId = "khip01"
 DisplayName = "Audio Quality Evaluator"
 Icon = ""
 
