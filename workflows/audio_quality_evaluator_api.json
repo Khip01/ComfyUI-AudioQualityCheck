@@ -1,0 +1,41 @@
+{
+  "5": {
+    "inputs": {
+      "target_lufs": -14,
+      "lufs_tolerance": 2,
+      "max_true_peak_dbtp": -1,
+      "max_noise_floor_dbfs": -40,
+      "max_lra_lu": 3,
+      "max_dropout_seconds": 2,
+      "audio": [
+        "6",
+        0
+      ]
+    },
+    "class_type": "AudioQualityEvaluator",
+    "_meta": {
+      "title": "Audio Quality Evaluator"
+    }
+  },
+  "6": {
+    "inputs": {
+      "audio": "example_audio.wav"
+    },
+    "class_type": "LoadAudio",
+    "_meta": {
+      "title": "Load Audio"
+    }
+  },
+  "8": {
+    "inputs": {
+      "source": [
+        "5",
+        1
+      ]
+    },
+    "class_type": "PreviewAny",
+    "_meta": {
+      "title": "Preview as Text"
+    }
+  }
+}

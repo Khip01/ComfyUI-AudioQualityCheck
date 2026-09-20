@@ -1,0 +1,219 @@
+{
+  "id": "23e8b09b-7ad2-411d-8b79-b1941c09aa26",
+  "revision": 0,
+  "last_node_id": 8,
+  "last_link_id": 5,
+  "nodes": [
+    {
+      "id": 5,
+      "type": "AudioQualityEvaluator",
+      "pos": [
+        -1411.4010620642616,
+        -206.13779134010497
+      ],
+      "size": [
+        291.32421875,
+        218
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 2
+        }
+      ],
+      "outputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": [
+            5
+          ]
+        },
+        {
+          "name": "report",
+          "type": "STRING",
+          "links": [
+            4
+          ]
+        },
+        {
+          "name": "is_valid",
+          "type": "BOOLEAN",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "AudioQualityEvaluator"
+      },
+      "widgets_values": [
+        -14,
+        2,
+        -1,
+        -40,
+        3,
+        2
+      ],
+      "widgets_values_named": {
+        "target_lufs": -14,
+        "lufs_tolerance": 2,
+        "max_true_peak_dbtp": -1,
+        "max_noise_floor_dbfs": -40,
+        "max_lra_lu": 3,
+        "max_dropout_seconds": 2
+      }
+    },
+    {
+      "id": 6,
+      "type": "LoadAudio",
+      "pos": [
+        -1785.6539218028838,
+        -205.07763696140864
+      ],
+      "size": [
+        282.798828125,
+        136
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "AUDIO",
+          "type": "AUDIO",
+          "links": [
+            2
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadAudio"
+      },
+      "widgets_values": [
+        "example_audio.wav",
+        ""
+      ],
+      "widgets_values_named": {
+        "audio": "example_audio.wav",
+        "upload": ""
+      }
+    },
+    {
+      "id": 7,
+      "type": "SaveAudioAdvanced",
+      "pos": [
+        -1020.5306170770589,
+        -202.55868704799283
+      ],
+      "size": [
+        374.3919300495163,
+        193.99997263610092
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 4,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 5
+        }
+      ],
+      "outputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": null
+        }
+      ],
+      "properties": {},
+      "widgets_values": [
+        "audio_quality_check",
+        "mp3",
+        "320k"
+      ],
+      "widgets_values_named": {
+        "filename_prefix": "audio_quality_check",
+        "format": "mp3",
+        "format.quality": "320k"
+      }
+    },
+    {
+      "id": 8,
+      "type": "PreviewAny",
+      "pos": [
+        -1023.1212403160982,
+        66.22960421582044
+      ],
+      "size": [
+        482.482878873261,
+        347.42850807971064
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "source",
+          "type": "*",
+          "link": 4
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewAny"
+      },
+      "widgets_values": [],
+      "widgets_values_named": {}
+    }
+  ],
+  "links": [
+    [
+      2,
+      6,
+      0,
+      5,
+      0,
+      "AUDIO"
+    ],
+    [
+      4,
+      5,
+      1,
+      8,
+      0,
+      "STRING"
+    ],
+    [
+      5,
+      5,
+      0,
+      7,
+      0,
+      "AUDIO"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.8223849387540689,
+      "offset": [
+        2601.585769094029,
+        504.1821868027596
+      ]
+    },
+    "frontendVersion": "1.53.6"
+  },
+  "version": 0.4
+}
