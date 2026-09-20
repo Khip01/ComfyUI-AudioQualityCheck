@@ -18,7 +18,12 @@ All thresholds are exposed as node widgets, so they can be tuned per project wit
 
 ## Installation
 
+### Via ComfyUI Manager
+
+Search for `comfyui-audio-quality-check` in ComfyUI Manager and install. Restart ComfyUI afterwards.
+
 ### Manual Installation
+
 Copy or clone this repository into your ComfyUI `custom_nodes/` directory:
 
 ```bash
@@ -28,6 +33,20 @@ pip install -r ComfyUI-AudioQualityCheck/requirements.txt
 ```
 
 Restart ComfyUI after installation. Both nodes appear under the `audio/quality` category.
+
+## Compatibility
+
+| Requirement | Version |
+|---|---|
+| ComfyUI | Any version with the `AUDIO` type, `PreviewAny`, and `SaveAudio` nodes |
+| Python | 3.9 or newer |
+| PyTorch | Provided by ComfyUI |
+
+Dependencies are limited to `numpy`, `scipy`, and `pyloudnorm`, all pure Python wheels that need no build step and no GPU.
+
+The nodes never move audio to the GPU. They call `.cpu().numpy()` on the incoming tensor and do all measurement and processing on the CPU, so they run on CPU-only ComfyUI installations as well.
+
+Audio decoding is handled by ComfyUI itself through `LoadAudio`, which relies on PyAV and torchaudio. This pack does not decode files, so no extra codec library is required for MP3 or other lossy formats.
 
 ## Nodes
 
@@ -61,12 +80,38 @@ LoadAudio -> Audio Quality Evaluator -> Audio Standards Fixer -> Audio Quality E
 
 To read a report inside the graph, connect the `report` output to a core `Preview Any` node. ComfyUI does not render custom node text output on the node body by default, so a preview node is required.
 
-Example workflows are provided in the `workflows/` directory:
+## Example Workflows
 
-- `audio_quality_evaluator_ui.json` and `audio_quality_evaluator_api.json`.
-- `audio_quality_fixer_ui.json` and `audio_quality_fixer_api.json`.
+Four workflows are provided in the `workflows/` directory. The UI variants can be loaded through the ComfyUI graph editor. The API variants are prompt-format JSON for programmatic submission.
 
-The examples reference `example_audio.wav`. Replace it with your own file after loading the workflow.
+| File | Format | What it does |
+|---|---|---|
+| `audio_quality_evaluator_ui.json` | Graph editor | Loads one audio file, measures it, and previews the report |
+| `audio_quality_evaluator_api.json` | API prompt | Same as above, for scripted submission |
+| `audio_quality_fixer_ui.json` | Graph editor | Measures, fixes, measures again, and previews all three reports |
+| `audio_quality_fixer_api.json` | API prompt | Same as above, for scripted submission |
+
+The fixer examples also include a `SaveAudio` node so the corrected result can be written to disk.
+
+All examples reference `example_audio.wav`. Replace it with your own file after loading the workflow.
+
+## Troubleshooting
+
+### The report does not appear on the node
+
+This is expected. ComfyUI only renders text returned through the `ui` channel for nodes that ship a matching frontend extension, and this pack ships none. Connect the `report` output to a core `Preview Any` node to read it.
+
+### Nodes do not appear in the Add Node menu
+
+Check the ComfyUI startup log for a line mentioning `ComfyUI-AudioQualityCheck`. If the module failed to import, the log shows the traceback. The most common causes are a missing dependency and a Python version older than 3.9.
+
+### Nodes show as red or missing on a cloud platform
+
+Managed platforms such as Comfy Cloud, RunningHub, and ComfyICU run a curated set of custom nodes. A node published to the Comfy Registry is not automatically available on those platforms. Self-hosted ComfyUI installations and platforms that allow arbitrary node installation are unaffected.
+
+### The workflow loads but audio cannot be found
+
+The example workflows reference `example_audio.wav`, which is not bundled. Select your own file in the `LoadAudio` node after loading a workflow.
 
 ## Node Specification
 
