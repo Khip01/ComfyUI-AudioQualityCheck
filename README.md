@@ -1,6 +1,6 @@
 # ComfyUI-AudioQualityCheck
 
-Automated audio quality evaluation custom node for ComfyUI for thesis research on broadcast-style audio quality thresholds.
+Automated audio quality evaluation custom node for ComfyUI.
 
 The node inspects an `AUDIO` input, measures five quality criteria, and returns a human readable report plus a boolean verdict. It does not modify the audio, so it can be inserted anywhere in an existing audio pipeline as a quality gate.
 
@@ -63,7 +63,7 @@ Both examples reference `example_audio.wav`. Replace it with your own file after
 
 ```
 === Audio Quality Evaluation Report ===
-Overall Status       : PASSED
+Overall Status       : FAILED
 Sample Rate          : 44100 Hz
 Channels             : 2
 ----------------------------------------
