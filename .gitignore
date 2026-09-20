@@ -20,3 +20,6 @@ env/
 *.mp3
 *.flac
 *.ogg
+
+# Local logs
+logs/

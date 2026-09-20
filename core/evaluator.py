@@ -131,8 +131,6 @@ def calculate_max_dropout(
     return max_silent_samples / sample_rate
 
 
-
-
 # 6. Fungsi Utama: Orkestrator Evaluasi Standar Audio
 # ------
 # Menjalankan seluruh fungsi perhitungan, membandingkan hasil dengan ambang
@@ -151,6 +149,8 @@ def evaluate_audio_quality(
         waveform
     )
 
+    measured_lufs: float
+    measured_lra: float
     measured_lufs, measured_lra = calculate_lufs_and_lra(audio_np, sample_rate)
     measured_true_peak: float = calculate_true_peak(audio_np)
     measured_noise_floor: float = calculate_noise_floor(audio_np, sample_rate)

@@ -4,6 +4,7 @@ import torch
 
 from .core.evaluator import evaluate_audio_quality
 
+
 class AudioQualityEvaluator:
     @classmethod
     def INPUT_TYPES(cls) -> dict[str, dict[str, Any]]:
@@ -42,7 +43,7 @@ class AudioQualityEvaluator:
     FUNCTION: str = "evaluate"
     CATEGORY: str = "audio/quality"
 
-    def evaluate (
+    def evaluate(
         self,
         audio: dict[str, Any],
         target_lufs: float,
@@ -50,11 +51,13 @@ class AudioQualityEvaluator:
         max_true_peak_dbtp: float,
         max_noise_floor_dbfs: float,
         max_lra_lu: float,
-        max_dropout_seconds: float
+        max_dropout_seconds: float,
     ) -> dict[str, Any]:
-        waveform = audio["waveform"]
-        sample_rate = audio["sample_rate"]
+        waveform: torch.Tensor = audio["waveform"]
+        sample_rate: int = audio["sample_rate"]
 
+        report: str
+        is_valid: bool
         report, is_valid = evaluate_audio_quality(
             waveform=waveform,
             sample_rate=sample_rate,
