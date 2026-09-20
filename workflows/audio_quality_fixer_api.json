@@ -1,0 +1,75 @@
+{
+  "5": {
+    "inputs": {
+      "target_lufs": -14.0,
+      "lufs_tolerance": 2.0,
+      "max_true_peak_dbtp": -1.0,
+      "max_noise_floor_dbfs": -40.0,
+      "max_lra_lu": 3.0,
+      "max_dropout_seconds": 2.0,
+      "audio": [
+        "6",
+        0
+      ]
+    },
+    "class_type": "AudioQualityEvaluator",
+    "_meta": {
+      "title": "Audio Quality Evaluator"
+    }
+  },
+  "6": {
+    "inputs": {
+      "audio": "example_audio.wav"
+    },
+    "class_type": "LoadAudio",
+    "_meta": {
+      "title": "Load Audio"
+    }
+  },
+  "8": {
+    "inputs": {
+      "source": [
+        "5",
+        1
+      ]
+    },
+    "class_type": "PreviewAny",
+    "_meta": {
+      "title": "Preview as Text"
+    }
+  },
+  "9": {
+    "inputs": {
+      "target_lufs": -14.0,
+      "lufs_tolerance": 2.0,
+      "max_true_peak_dbtp": -1.0,
+      "target_true_peak_dbtp": -2.0,
+      "plr_gain_only_threshold": 13.0,
+      "max_noise_floor_dbfs": -40.0,
+      "max_lra_lu": 3.0,
+      "max_dropout_seconds": 2.0,
+      "fix_loudness": true,
+      "fix_true_peak": true,
+      "audio": [
+        "5",
+        0
+      ]
+    },
+    "class_type": "AudioStandardsFixer",
+    "_meta": {
+      "title": "Audio Standards Fixer"
+    }
+  },
+  "10": {
+    "inputs": {
+      "source": [
+        "9",
+        1
+      ]
+    },
+    "class_type": "PreviewAny",
+    "_meta": {
+      "title": "Preview as Text"
+    }
+  }
+}

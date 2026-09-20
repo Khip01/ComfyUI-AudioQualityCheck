@@ -1,7 +1,7 @@
 [project]
 name = "comfyui-audio-quality-check"
-description = "ComfyUI custom node for automated audio quality standards evaluation (LUFS, True Peak, Noise Floor, LRA, Dropout)"
-version = "0.2.1"
+description = "ComfyUI custom nodes for automated audio quality evaluation and correction (LUFS, True Peak, Noise Floor, LRA, Dropout)"
+version = "0.3.0"
 requires-python = ">=3.9"
 license = { file = "LICENSE" }
 authors = [
@@ -19,7 +19,7 @@ Repository = "https://github.com/Khip01/ComfyUI-AudioQualityCheck"
 
 [tool.comfy]
 PublisherId = "khip01"
-DisplayName = "Audio Quality Evaluator"
+DisplayName = "Audio Quality Check"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

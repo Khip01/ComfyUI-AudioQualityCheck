@@ -1,12 +1,14 @@
 """
 Modul Evaluasi Standar Kualitas Audio.
 Ringkasan Fungsi:
-1. convert_tensor_to_numpy : Mengubah tensor PyTorch ComfyUI menjadi array NumPy float32.
-2. calculate_lufs_and_lra  : Menghitung Integrated Loudness (LUFS) dan Loudness Range (LRA) via ITU-R BS.1770-4.
-3. calculate_true_peak     : Menghitung True Peak (dBTP) menggunakan 4x oversampling polifase.
-4. calculate_noise_floor   : Menghitung Noise Floor (dBFS) dari persentil ke-10 jendela RMS 50ms.
-5. calculate_max_dropout   : Mendeteksi durasi hening terpanjang dalam detik di bawah ambang batas.
-6. evaluate_audio_quality  : Fungsi orkestrator yang mengevaluasi seluruh parameter dan menyusun laporan.
+1. calculate_lufs_and_lra  : Menghitung Integrated Loudness (LUFS) dan Loudness Range (LRA) via ITU-R BS.1770-4.
+2. calculate_true_peak     : Menghitung True Peak (dBTP) menggunakan 4x oversampling polifase.
+3. calculate_noise_floor   : Menghitung Noise Floor (dBFS) dari persentil ke-10 jendela RMS 50ms.
+4. calculate_max_dropout   : Mendeteksi durasi hening terpanjang dalam detik di bawah ambang batas.
+5. evaluate_audio_quality  : Fungsi orkestrator yang mengevaluasi seluruh parameter dan menyusun laporan.
+
+Konversi tensor ke NumPy disediakan oleh core.audio_io dan diimpor ulang di
+sini agar tetap dapat dipakai dari modul ini.
 """
 
 import math
@@ -14,29 +16,22 @@ from typing import Any
 
 import numpy as np
 import pyloudnorm as pyln
-from scipy import signal
 import torch
+from scipy import signal
+
+from .audio_io import convert_tensor_to_numpy
+
+__all__ = [
+    "calculate_lufs_and_lra",
+    "calculate_max_dropout",
+    "calculate_noise_floor",
+    "calculate_true_peak",
+    "convert_tensor_to_numpy",
+    "evaluate_audio_quality",
+]
 
 
-# 1. Konversi Tensor PyTorch ke Matriks NumPy
-# ---
-# Mengubah tensor audio [batch, channels, samples] dari ComfyUI menjadi format
-# matriks NumPy 2D [samples, channels] bertipe float32 dalam rentang [-1.0, 1.0].
-def convert_tensor_to_numpy(
-    waveform: torch.Tensor,
-) -> np.ndarray[Any, np.dtype[np.float32]]:
-    audio_tensor: torch.Tensor = waveform[0]
-    if audio_tensor.ndim == 2:
-        return audio_tensor.cpu().numpy().T.astype(np.float32)
-    audio_np: np.ndarray[Any, np.dtype[np.float32]] = (
-        audio_tensor.cpu().numpy().astype(np.float32)
-    )
-    if audio_np.ndim == 1:
-        audio_np = np.expand_dims(audio_np, axis=1)
-    return audio_np
-
-
-# 2. Perhitungan Integrated Loudness (LUFS) dan Loudness Range (LRA)
+# 1. Perhitungan Integrated Loudness (LUFS) dan Loudness Range (LRA)
 # ---
 # Mengukur persepsi kenyaringan manusia dengan filter K-weighting (BS.1770-4)
 # serta mengukur rentang variasi dinamika volume vokal menggunakan pyloudnorm.
@@ -58,7 +53,7 @@ def calculate_lufs_and_lra(
     return measured_lufs, measured_lra
 
 
-# 3. Perhitungan True Peak (dBTP) dengan 4x Oversampling
+# 2. Perhitungan True Peak (dBTP) dengan 4x Oversampling
 # ---
 # Mendeteksi puncak sinyal antarsampel (inter-sample peak) dengan interpolasi
 # 4x oversampling untuk mencegah distorsi kliping saat konversi lossy format.
@@ -74,7 +69,7 @@ def calculate_true_peak(
     return -100.0
 
 
-# 4. Perhitungan Noise Floor (dBFS) pada Segmen Hening
+# 3. Perhitungan Noise Floor (dBFS) pada Segmen Hening
 # ---
 # Membagi audio ke jendela 50 milidetik dan mengambil persentil ke-10 RMS
 # terendah untuk mengukur dasar desis noise tanpa gangguan sinyal vokal utama.
@@ -103,7 +98,7 @@ def calculate_noise_floor(
     return -100.0
 
 
-# 5. Perhitungan Durasi Dropout Terpanjang (Detik)
+# 4. Perhitungan Durasi Dropout Terpanjang (Detik)
 # ---
 # Mengukur durasi keheningan terpanjang berturut-turut di bawah ambang -60 dBFS
 # untuk mendeteksi adanya audio yang terpotong atau mengalami desinkronisasi.
@@ -131,7 +126,7 @@ def calculate_max_dropout(
     return max_silent_samples / sample_rate
 
 
-# 6. Fungsi Utama: Orkestrator Evaluasi Standar Audio
+# 5. Fungsi Utama: Orkestrator Evaluasi Standar Audio
 # ------
 # Menjalankan seluruh fungsi perhitungan, membandingkan hasil dengan ambang
 # kualitas yang ditentukan, dan menyusun laporan evaluasi.
